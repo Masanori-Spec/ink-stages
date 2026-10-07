@@ -1,0 +1,26 @@
+name: Official Xournal++ name-recipe PDF gate
+on: [push, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  official-native-renderer:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Standard build and independent PDF tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build gettext libgtk-3-dev libpoppler-glib-dev libxml2-dev libzip-dev librsvg2-dev libqpdf-dev xvfb xauth fonts-dejavu-core poppler-utils python3-pil
+      - name: Bounded parser and CLI tests
+        run: python3 -m unittest discover -s tests -v
+      - name: Native API fixture and official release CLI rendering
+        run: xvfb-run -a bash scripts/hosted_native_gate.sh
+      - name: Retain actual PDFs, images and native evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ink-stages-native-${{ github.sha }}
+          path: evidence/
+          retention-days: 14
+          if-no-files-found: error
