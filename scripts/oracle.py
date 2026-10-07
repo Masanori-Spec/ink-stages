@@ -61,7 +61,7 @@ assert json_file(F / 'inserted-reopened.json') == expected_snapshot(True)
 assert gzip.decompress((F / 'original.xopp').read_bytes()) == gzip.decompress((F / 'native-resaved.xopp').read_bytes())
 original = xml(F / 'original.xopp')
 assert original.tag == 'xournal' and original.attrib['fileversion'] == '4'
-assert 'Xournal++' in original.attrib['creator']
+assert original.attrib['creator'] == 'xournalpp 1.3.8'
 assert len(original.findall('page')) == 2
 assert original.find('page/background').attrib['filename'] == 'background.pdf'
 assert original.find('page/background').attrib['domain'] == 'absolute'
