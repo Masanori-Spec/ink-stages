@@ -14,7 +14,7 @@ The four-entry recipe requests page 1 A without background, page 1 B+A with back
 
 ## Consumer and independent output proof
 
-The official Xournal++ 1.3.8 AppImage and qpdf 12.4.2 release ZIP are size/SHA-256 checked before extraction. The real InkStages CLI validates all input, stages exact source/resource bytes, invokes the official renderer once per entry, combines those real PDFs with qpdf and saves its actual PDF/report. A synthetic or hand-constructed PDF cannot substitute for this route.
+The official Xournal++ 1.3.8 Ubuntu noble x86-64 DEB and qpdf 12.4.2 release ZIP are size/SHA-256 checked before use. The DEB is installed with standard dependencies on the disposable runner, and the actual CLI binary must byte-match its verified package payload. Version checks, source configuration/build and fixture startup have bounded deadlines. The real InkStages CLI validates all input, stages exact source/resource bytes, invokes the official renderer once per entry, combines those real PDFs with qpdf and saves its actual PDF/report. A synthetic or hand-constructed PDF cannot substitute for this route.
 
 A separate Python oracle imports neither the producer nor fixture author. It compares the native authored/reopened/resaved snapshots with handwritten layer, text, coordinate, color and shape records. Poppler reads all PDF page sizes and texts, then renders at 72 dpi. Literal interior pixel regions verify each layer's presence/absence, the white versus PDF background, and the original stacking order. qpdf validates every component and combined result. The assembled output must have dimensions 360×240, 360×240, 360×240 and 240×360 points in recipe order.
 

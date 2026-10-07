@@ -16,13 +16,15 @@ Checked 2026-10-07. This is an XOPP-specific workflow adapter, not an invention 
 | Component | Official identity |
 | --- | --- |
 | Xournal++ | [v1.3.8 release](https://github.com/xournalpp/xournalpp/releases/tag/v1.3.8), commit `938bdb8de4d32f38f48dd7f6544886722157a848` |
-| Linux x86-64 AppImage | [Official asset](https://github.com/xournalpp/xournalpp/releases/download/v1.3.8/xournalpp-1.3.8-x86_64.AppImage), asset ID `589915555`, 40,053,240 bytes |
-| AppImage SHA-256 | `fda3587ace5504275a227d4013ba5da0988bac52be281d04a4040e5e1abd5682` |
+| Ubuntu noble x86-64 DEB used by the gate | [Official asset](https://github.com/xournalpp/xournalpp/releases/download/v1.3.8/xournalpp-1.3.8-Ubuntu-noble-x86_64.deb), asset ID `589916161`, 3,244,468 bytes |
+| DEB SHA-256 | `246f1767ac135f5cda8e4c0518f3a42e4122ae7710d5ae254709bdee32d42ff0` |
 | qpdf | [v12.4.2 release](https://github.com/qpdf/qpdf/releases/tag/v12.4.2), commit `4eba95899886e851cc41d76886483b347612f2a8` |
 | Linux x86-64 ZIP | [Official asset](https://github.com/qpdf/qpdf/releases/download/v12.4.2/qpdf-12.4.2-bin-linux-x86_64.zip), asset ID `591714098`, 4,040,257 bytes |
 | qpdf ZIP SHA-256 | `db367d897829f22c4198ce1094143c9d467bd6ee7dfabc44ba6f02056b24f8b1` |
 
 Sizes and digests were verified against the official release APIs; annotated tags were resolved to the listed commits. Hosted execution must verify downloaded bytes again before use. The pinned upstream source is fetched only into ignored CI scratch storage for fixture authoring, and must remain unmodified.
+
+The initial official AppImage was also verified (asset `589915555`, 40,053,240 bytes, SHA-256 `fda3587ace5504275a227d4013ba5da0988bac52be281d04a4040e5e1abd5682`), but it did not pass startup on the runner: its child exited 127 and its graphical crash wrapper waited for dismissal. The [pinned wrapper source](https://github.com/xournalpp/xournalpp/blob/938bdb8de4d32f38f48dd7f6544886722157a848/src/exe/Xournalpp-wrapper.cpp) also captures the child's stdout and returns without forwarding it on success. The gate therefore uses the same official release's native DEB CLI, with explicit package/binary integrity proof; it makes no successful AppImage claim.
 
 ## Native format and authoring references
 

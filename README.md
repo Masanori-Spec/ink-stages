@@ -9,7 +9,7 @@ For example, a recipe can produce **A → A+B → A+C**. Xournal++ already expor
 ## Requirements
 
 - Linux with Python 3.11 or later; the product uses only the standard library
-- Official Xournal++ **1.3.8**, available as an installed executable or extracted official AppImage
+- Official Xournal++ **1.3.8** native `xournalpp` executable; the verification route uses its official Ubuntu 24.04 x86-64 DEB
 - Official qpdf **12.4.2**
 - A working display or standard `xvfb-run` for the native renderer
 - A trusted local project within the [supported input profile](docs/INPUT-PROFILE.md)
@@ -44,7 +44,7 @@ python3 -m ink_stages drawing.xopp recipe.json --dry-run --report plan.json
 xvfb-run -a python3 -m ink_stages drawing.xopp recipe.json --output stages.pdf --report export.json
 ```
 
-For tools outside `PATH`, pass absolute `--xournalpp /path/to/AppRun` and `--qpdf /path/to/qpdf` paths. Versions are checked. Neither a prior PDF nor a prior report is overwritten. `--timeout` sets the limit per native command, from 1 to 300 seconds, default 60.
+For tools outside `PATH`, pass absolute `--xournalpp /path/to/xournalpp` and `--qpdf /path/to/qpdf` paths. Use the native CLI executable, not the AppImage's graphical crash wrapper, which captures CLI stdout and can wait in a dialog. Versions are checked. Neither a prior PDF nor a prior report is overwritten. `--timeout` sets the limit per native command, from 1 to 300 seconds, default 60.
 
 Pages start at 1. Names are case-sensitive and must match exactly; unnamed or duplicate source layer names, missing names, duplicate names within an entry and empty selections are rejected. An entry's layer array selects a set: reversing names does not reverse native stacking order. All pages and their resources are validated, including pages not selected by the recipe. When a layer is inserted before B, the recipe still finds B by name; its native index is recorded in the next report.
 

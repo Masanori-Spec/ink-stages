@@ -58,7 +58,7 @@ run('independent-oracle', [sys.executable, str(ROOT / 'scripts/oracle.py'), str(
 (E / 'native-gate-result.json').write_text(json.dumps({
     'status': 'pass', 'producer': 'Actual InkStages Linux CLI',
     'author': 'Pinned unmodified official C++ model and SaveHandler/LoadHandler APIs',
-    'consumer': 'Official Xournal++ 1.3.8 AppImage CLI and qpdf 12.4.2',
+    'consumer': 'Official Xournal++ 1.3.8 Ubuntu noble DEB CLI and qpdf 12.4.2',
     'nativeGuiTest': False, 'backgroundResource': 'Synthetic same-directory PDF',
     'inputRewrites': False, 'scriptsExecutedFromInputs': False,
 }, indent=2) + '\n')
