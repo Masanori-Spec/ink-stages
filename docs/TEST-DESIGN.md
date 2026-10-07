@@ -35,4 +35,4 @@ Unit tests separately exercise recipe/schema limits, exact names, unsupported fo
 
 The actual PDFs and Poppler images require independent visual inspection. Native source cleanliness, release integrity, tool versions, commands, native model records and immutable source hashes are retained with the artifact. No upstream source tree or executable is uploaded as an artifact or distributed with the product.
 
-Source-level review is not runtime success. The first hosted native result remains pending. The profile does not promise arbitrary hostile-file safety, PDF interactive metadata preservation, a UI, round-trip editing, or support for untested tool versions.
+The full hosted gate passed on 2026-10-07. The [verification record](VERIFICATION.md) identifies the exact producer commit, successful run and inspected artifact. Source-level review alone does not establish this result. The profile does not promise arbitrary hostile-file safety, PDF interactive metadata preservation, a UI, round-trip editing, or support for untested tool versions.

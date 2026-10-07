@@ -1,6 +1,6 @@
 # InkStages
 
-An ordered layer-name recipe for Xournal++ PDF exports. Linux CLI, native verification pending.
+An ordered layer-name recipe for Xournal++ PDF exports. Linux CLI, verified with the official Xournal++ 1.3.8 renderer and qpdf 12.4.2.
 
 InkStages turns one saved XOPP and a small JSON recipe into a multipage PDF. Each entry chooses a source page, exact layer names and whether to include its background. It resolves those names afresh, asks the official Xournal++ renderer for one page per entry, and combines the results with qpdf. It preserves the original layer stacking order and keeps repeated recipe entries.
 
@@ -56,6 +56,6 @@ The first profile supports **gzip XOPP fileversion 4**, named layers, bounded na
 
 Inputs and local PDF resources must be trusted. Bounds and path checks are not a sandbox for hostile native PDF/rendering exploits. PDFs are exported as presentation pages; bookmarks, forms, annotations, original document metadata and interactive behavior are not promised to survive. Original XOPP/resource files remain the editable source.
 
-The [native-first test contract](docs/TEST-DESIGN.md) requires real official API authoring/save/reopen, the official release renderer and qpdf, independent Poppler dimensions/text/pixel checks, native layer insertion, wrong-index and progressive-prefix controls, missing/duplicate-name failures and unchanged original bytes. Source review and local tests alone are not native success. Actual hosted evidence is still pending.
+The [native-first test contract](docs/TEST-DESIGN.md) requires real official API authoring/save/reopen, the official release renderer and qpdf, independent Poppler dimensions/text/pixel checks, native layer insertion, wrong-index and progressive-prefix controls, missing/duplicate-name failures and unchanged original bytes. The actual hosted gate passed with 51 unit tests, native API save/reopen, four rendered recipe pages and both distinguishing controls. See the [dated verification record, exact run and evidence hashes](docs/VERIFICATION.md). This is API-authored and CLI-rendered evidence; no GUI acceptance is claimed.
 
 The repository distributes original source and synthetic test instructions. It includes no upstream binaries, copied upstream source tree, original-code license grant, hosted interface or paid service. It does not add a browser UI.
