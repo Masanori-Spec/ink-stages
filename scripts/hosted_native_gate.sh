@@ -15,7 +15,7 @@ curl --fail --location --retry 2 --output .native/xournalpp.AppImage 'https://gi
 curl --fail --location --retry 2 --output .native/qpdf.zip 'https://github.com/qpdf/qpdf/releases/download/v12.4.2/qpdf-12.4.2-bin-linux-x86_64.zip'
 python3 - <<'PY'
 from pathlib import Path
-import hashlib,json,zipfile
+import hashlib,json
 pins={
  'xournalpp.AppImage':(40053240,'fda3587ace5504275a227d4013ba5da0988bac52be281d04a4040e5e1abd5682'),
  'qpdf.zip':(4040257,'db367d897829f22c4198ce1094143c9d467bd6ee7dfabc44ba6f02056b24f8b1')}
@@ -23,14 +23,8 @@ for name,(size,digest) in pins.items():
  p=Path('.native')/name
  assert p.stat().st_size==size and hashlib.sha256(p.read_bytes()).hexdigest()==digest,name
 Path('evidence/release-integrity.json').write_text(json.dumps(pins,indent=2)+'\n')
-with zipfile.ZipFile('.native/qpdf.zip') as z:
- assert len(z.infolist())<=2048 and sum(f.file_size for f in z.infolist())<=128*1024*1024
- assert len(z.namelist())==len(set(z.namelist())) and z.testzip() is None
- for f in z.infolist():
-  assert not Path(f.filename).is_absolute() and '..' not in Path(f.filename).parts
-  assert (f.external_attr>>16)&0o170000!=0o120000
- z.extractall('.native/qpdf')
 PY
+python3 scripts/extract_qpdf.py .native/qpdf.zip .native/qpdf evidence/qpdf-release-members.json
 chmod +x .native/xournalpp.AppImage
 mkdir .native/xournal
 (cd .native/xournal && ../xournalpp.AppImage --appimage-extract > ../appimage-extraction.log)
@@ -55,6 +49,7 @@ cmake -S .native/upstream -B .native/build -G Ninja \
 cmake --build .native/build --target inkstages-fixture --parallel 2 > evidence/native-build.log 2>&1
 git -C .native/upstream diff --exit-code > evidence/native-source-unmodified.txt
 sha256sum .native/build/src/core/libxournalpp-core.a "$INKSTAGES_QPDF" .native/xournalpp.AppImage > evidence/native-binaries-before.sha256
+find .native/qpdf -type f -print0 | sort -z | xargs -0 sha256sum >> evidence/native-binaries-before.sha256
 .native/build/inkstages-fixture "$INK_ROOT/evidence/fixture" > evidence/native-author.log 2>&1
 python3 scripts/native_gate.py
 sha256sum --check evidence/native-binaries-before.sha256 > evidence/native-binaries-unchanged.txt
