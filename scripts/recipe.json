@@ -1,0 +1,9 @@
+{
+  "format": "inkstages.recipe.v1",
+  "entries": [
+    {"page": 1, "layers": ["A"], "background": false},
+    {"page": 1, "layers": ["B", "A"], "background": true},
+    {"page": 1, "layers": ["A", "C"], "background": true},
+    {"page": 2, "layers": ["D"], "background": true}
+  ]
+}
